@@ -31,9 +31,12 @@
 
               <div class="info-box-content">
                 <span class="info-box-text">services</span>
+                @php
+                    $services=App\Models\Service::all()->count()
+                @endphp
                 <span class="info-box-number">
-                  10
-                  <small>%</small>
+              {{$services}}
+                  <small></small>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -49,8 +52,15 @@
               <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
 
               <div class="info-box-content">
+                @php
+                $appointments=App\Models\Appointment::all()->count()
+            @endphp
                 <span class="info-box-text">Booked slots</span>
-                <span class="info-box-number"></span>
+
+                 <span class="info-box-number">
+              {{$appointments}}
+                  <small></small>
+                </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -60,10 +70,15 @@
           <div class="col-12 col-sm-6 col-md-4">
             <div class="info-box mb-3">
               <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
-
+              @php
+              $admins=App\Models\Admin::all()->count()
+          @endphp
               <div class="info-box-content">
                 <span class="info-box-text">Admins</span>
-                <span class="info-box-number"></span>
+                <span class="info-box-number">
+                  {{$admins}}
+                      <small></small>
+                    </span>
               </div>
               <!-- /.info-box-content -->
             </div>

@@ -40,7 +40,7 @@ class IndexController extends Controller
  $appointment->save();
  Session::flash('success_message','booking success');
 
- return redirect()->route('home');
+ return redirect()->route('user.appointments');
 
     }
 
