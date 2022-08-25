@@ -12,7 +12,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Orders</li>
+             
             </ol>
           </div>
         </div>
@@ -84,15 +84,21 @@
 
                   <td class="text-centre">
                     
-            <form action="{{url('approval/',$appointment->id)}}" method="POST" class="d-inline">@csrf
+            <form action="{{route('approval', $appointment->id)}}" method="POST" class="d-inline">@csrf
               
                <input <?php if($appointment->condition=='approved'){echo 'checked';}?> type="checkbox" name="approve" required >
-               <input type="hidden" name="appointment_id" value="{{$appointment->id}}">
+               
                 <input type="submit" class="btn btn-outline-success btn-sm" value="Approve">
               </form> 
 
  
-            <button class="btn btn-outline-danger btn-sm reject-modal" data-title="Reasons For Rejection" data-url= >reject</button>
+              <form action="{{route('app.delete', $appointment->id)}}" method="POST" class="d-inline">@csrf
+                @method('DELETE')
+              
+                <input  type="checkbox" name="delete" required >
+                
+                 <input type="submit" class="btn btn-outline-danger btn-sm" value="delete">
+               </form>
            
         
        </td>

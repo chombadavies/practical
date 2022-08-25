@@ -16,4 +16,5 @@ Route::post('user/login',[App\Http\Controllers\Frontend\IndexController::class,'
 Route::post('user/register',[App\Http\Controllers\Frontend\IndexController::class,'registerSubmit'])->name('register.submit');
 Route::any('user/logout',[App\Http\Controllers\Frontend\IndexController::class,'userLogout'])->name('user.logout');
 
-Route::any('appointments',[App\Http\Controllers\Frontend\IndexController::class, 'Apointments'])->name('appointments.index');
+
+Route::get('userappointments', [App\Http\Controllers\Frontend\IndexController::class, 'userAppointments'])->name('user.appointments');

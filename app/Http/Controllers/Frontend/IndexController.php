@@ -38,8 +38,9 @@ class IndexController extends Controller
  $appointment->appointment_number='AP'.rand(111, 99999);
  $appointment->appointment_date=$request->appointment_date;
  $appointment->save();
+ Session::flash('success_message','booking success');
 
- return redirect()->route('appointments.index');
+ return redirect()->route('home');
 
     }
 
@@ -72,7 +73,8 @@ public function  Apointments(){
         
                         //  return  $data=session()->all();
                         if(Session::get('url.intended')){
-                            return redirect::to(Session::get('url.intended'))->with('success','Login Successful');
+                            // return redirect::to(Session::get('url.intended'))->with('success','Login Successful');
+                            return redirect()->route('home')->with('success','Login Successful');
                              }else{
                               return redirect()->route('home')->with('success','Login Successful');
                              }
@@ -126,6 +128,21 @@ public function  Apointments(){
                         Auth::logout();
                         
                         return redirect()->route('home')->with('success','user logout Successfull');
+                    }
+
+                    public function userAppointments(){
+
+                        $user = Auth::user();
+
+                        $appointments = DB::table('appointments')
+                        ->join('services', 'appointments.service_id', '=', 'services.id')
+                        ->select('appointments.id', 'services.title','appointments.appointment_date','appointments.condition' )
+                        ->where('user_id',Auth::user()->id)
+                        ->get();
+                      
+                     
+                       $data['page_title']='User Appointments';
+                        return view('frontend.pages.appointments',$data)->with(compact('user','appointments'));
                     }
     
    

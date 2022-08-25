@@ -18,7 +18,7 @@ class AdminsTableSeeder extends Seeder
             DB::table('admins')->insert([
                 [
     'full_name'=>'david admin',
-    'email'=>'davies@godigital.com',
+    'email'=>'admin@admin.com',
     'password'=>Hash::make('meme'),
      ]]);
     

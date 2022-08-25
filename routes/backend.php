@@ -12,6 +12,9 @@ Route::group(['prefix'=>'admin','middleware' => ['admin']],function(){
     Route::get('/',[App\Http\Controllers\Admin\AdminController::class, 'admin'])->name('admin');
     Route::resource('services', \App\Http\Controllers\Admin\ServicesController::class);
     Route::any('/fetchservices',[App\Http\Controllers\Admin\ServicesController::class, 'fetchServices']);
-    Route::post('/approval/{id}',[\App\Http\Controllers\Admin\ServicesController::class ,'approval']);
-  
-});
+    
+Route::any('/approval/{id}',[\App\Http\Controllers\Admin\ServicesController::class ,'approval'])->name('approval');
+Route::any('/delete/{id}',[\App\Http\Controllers\Admin\ServicesController::class,'delete'])->name('app.delete');
+Route::any('appointments',[App\Http\Controllers\Frontend\IndexController::class, 'Apointments'])->name('appointments.index');
+ });
+ 

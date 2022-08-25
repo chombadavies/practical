@@ -29,10 +29,13 @@
                             <li class="submenu">
                                 <a href="javascript:void(0);" class="show-submenu">Services</a>
                                 <ul>
-                                    <li><a href="index.html">Slider</a></li>
-                                    <li><a href="index-2.html">Video Background</a></li>
-                                    <li><a href="index-3.html">Vertical Slider</a></li>
-                                    <li><a href="index-4.html">GDPR Cookie Bar</a></li>
+                                    @php
+                                        $services=App\Models\Service::all();
+                                    @endphp
+                                    @foreach ($services as $service)
+                                    <li><a href="">{{$service->title}}</a></li>
+                                    @endforeach
+                                   
                                 </ul>
                             </li>
                           
@@ -48,12 +51,14 @@
                 </nav>
                 <div class="col-xl-3 col-lg-2 d-lg-flex align-items-center justify-content-end text-end">
                     <div class="dropdown dropdown-access">
-                        <a href="account.html" class="access_link"><span>Account</span></a>
+                        <a href="" class="access_link"><span>Account</span></a>
                         <div class="dropdown-menu">
                          
                             <ul>
                                 @auth
-                               
+                                <li>
+                                    <a href="{{route('user.appointments')}}" class="form-control">My Appointments</a>
+                                </li>
                                <li>
                                     <form action="{{route('user.logout')}}" method="POST">@csrf 
                                     <button class="btn btn-main btn-block btn-info form-control">Logout</button>

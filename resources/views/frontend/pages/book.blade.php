@@ -53,11 +53,17 @@
                                
                             </div>
                         </div>
-                            <div class="form-group">
-                                <label for="">Appointemnt Date</label>
-                                <input type="date" class="form-control" name="appointment_date" >
-                               
-                            </div>
+                           
+							<div class="col-sm-4 form-group col-md-12">
+								<label  style="font-weight: normal;">Appointemnt Date</label>
+								<input   <?php 
+								$min = new DateTime();
+								// $min->modify("-5 days");
+								$max = new DateTime();
+									$max->modify("+15 days");
+								?>
+								type="date" value="<?php echo date("Y-m-d");?>" min=<?=$min->format("Y-m-d")?> max=<?=$max->format("Y-m-d")?> name="appointment_date"  class="form-control" required>
+							  </div>
                             
     
                             <div class="text-center"><input type="submit"  value="Book Service" class="btn_1 full-width btn-success"></div>

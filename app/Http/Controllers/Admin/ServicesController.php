@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Appointment;
 use DB;
 use Yajra\Datatables\Datatables;
 use Intervention\Image\Facades\Image;
@@ -142,29 +143,39 @@ class ServicesController extends Controller
 
     public function approval(Request $request ,$id)
     {
-        dd($id);
+        $appointment = Appointment::findOrFail($id);
+$data=$request->all();
 
-           $order = Order_detail::find($request->order_id);
-
-            $item = CentreItem::where(['item_id' => $order->item_id, 'centre_id' => Auth::User()->centre_id])->first();
-
-            $approveVal = $request->approve;
+           $approveVal = $request->approve;
 
             if ($approveVal == 'on') {
-                $approveVal = 1;
+                $approveVal = 'approved';
             } else {
-                $approveVal = 0;
+                $approveVal = null;
             }
-            // $item->approve=$approveVal;
-            // $item->reject =0;
-            // $item->save();
+           $appointment->condition = $approveVal;
+            $appointment->save();
 
-            $order->approve = $approveVal;
-            $order->reject = 0;
-            $order->save();
-
-            return redirect('/approve');
+            return redirect()->route('appointments.index');
        
+        }
+        public function delete(Request $request,$id)
+        {
+            $appointment = Appointment::findOrFail($id);
+          
+            $appointment->delete();
+            return redirect()->route('appointments.index');
+           
+        }
+        public function RejectionReason(){
+            $orderdetails = DB::table('order_details')
+                ->join('products', 'order_details.product_id', '=', 'products.id')
+                ->join('items', 'order_details.item_id', '=', 'items.id')
+                ->join('users', 'order_details.user_id', '=', 'users.id')
+                ->select('order_details.id', 'items.itemName', 'order_details.quantity', 'order_details.approve', 'order_details.reject', 'users.name', 'products.productName')
+                ->where(['order_details.issue' => 0, 'order_details.approve' => 0, 'order_details.reject' => 0, 'order_details.centre_id' => Auth::User()->centre_id, 'order_details.dpt_id' => Auth::User()->dpt_id])
+                ->get();
+            return view('store.rejectionReason',compact('orderdetails'));
         }
 
     
