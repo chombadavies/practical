@@ -45,8 +45,8 @@
                     <label for="exampleInputEmail1">Service Status</label>
                    <select name="status" class="form-control">
                     <option selected disabled>Status</option>
-                    <option value="booked" {{$service->status=='booked'? 'selected':''}}>Booked</option>
-                    <option value="unbooked" {{$service->status=='unbooked'?'selected':''}}>Un booked</option>
+                    <option value="active" {{$service->status=='active'? 'selected':''}}>Active</option>
+                    <option value="inactive" {{$service->status=='inactive'?'selected':''}}>Inactive</option>
                    </select>
                   </div>
                 </div>
